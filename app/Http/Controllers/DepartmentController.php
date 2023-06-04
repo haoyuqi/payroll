@@ -26,11 +26,10 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return DepartmentResource::collection(Department::all());
     }
 
     /**
@@ -64,9 +63,9 @@ class DepartmentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        //
+        return DepartmentResource::make($department);
     }
 
     /**
