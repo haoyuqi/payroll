@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
     use HasFactory;
+    use HasUuid;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -48,5 +52,10 @@ class Employee extends Model
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 }
