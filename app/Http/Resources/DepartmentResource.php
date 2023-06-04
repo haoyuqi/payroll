@@ -14,4 +14,18 @@ class DepartmentResource extends JsonApiResource
             'description' => $this->description,
         ];
     }
+
+    public function toRelationships($request): array
+    {
+        return [
+            'employees' => fn() => EmployeeResource::collection($this->employees),
+        ];
+    }
+
+    public function toLinks($request): array
+    {
+        return [
+            'self' => route('departments.show', ['department' => $this->uuid]),
+        ];
+    }
 }
