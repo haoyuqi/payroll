@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreateDepartmentAction;
+use App\Actions\UpdateDepartmentAction;
 use App\DTOs\DepartmentData;
 use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 use App\Http\Resources\DepartmentResource;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -13,7 +16,8 @@ class DepartmentController extends Controller
 {
 
     public function __construct(
-        public CreateDepartmentAction $createDepartmentAction
+        public CreateDepartmentAction $createDepartmentAction,
+        public UpdateDepartmentAction $updateDepartmentAction
     )
     {
 
@@ -83,9 +87,12 @@ class DepartmentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        //
+        $departmentData = new DepartmentData(...$request->validated());
+        $department = $this->updateDepartmentAction->execute($department, $departmentData);
+
+        return response()->noContent();
     }
 
     /**
