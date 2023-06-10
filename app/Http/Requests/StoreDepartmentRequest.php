@@ -25,7 +25,7 @@ class StoreDepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:departments|max:50',
-            'description' => 'string'
+            'description' => 'string',
         ];
     }
 }

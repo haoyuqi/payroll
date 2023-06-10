@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateDepartmentAction;
-use App\Actions\UpdateDepartmentAction;
-use App\DTOs\DepartmentData;
-use App\Http\Requests\StoreDepartmentRequest;
-use App\Http\Requests\UpdateDepartmentRequest;
-use App\Http\Resources\DepartmentResource;
-use App\Models\Department;
+use App\Actions\UpsertEmployeeAction;
+use App\DTOs\EmployeeData;
+use App\Http\Requests\UpsertEmployeeRequest;
+use App\Http\Resources\EmployeeResource;
+use App\Models\Employee;
 
-class DepartmentController extends Controller
+class EmployeeController extends Controller
 {
-    public function __construct(
-        public CreateDepartmentAction $createDepartmentAction,
-        public UpdateDepartmentAction $updateDepartmentAction
-    ) {
+    public function __construct(private UpsertEmployeeAction $upsertEmployeeAction)
+    {
     }
 
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return DepartmentResource::collection(Department::all());
+        //
     }
 
     /**
@@ -42,13 +40,11 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDepartmentRequest $request)
+    public function store(UpsertEmployeeRequest $request)
     {
-        $departmentData = new DepartmentData(...$request->validated());
-        $department = $this->createDepartmentAction->execute($departmentData);
+        $employee = $this->upsertEmployeeAction->execute(new Employee(), EmployeeData::formData($request));
 
-        return DepartmentResource::make($department)
-            ->response();
+        return EmployeeResource::make($employee)->response();
     }
 
     /**
@@ -57,9 +53,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($id)
     {
-        return DepartmentResource::make($department);
+        //
     }
 
     /**
@@ -80,10 +76,12 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDepartmentRequest $request, Department $department)
+    public function update(UpsertEmployeeRequest $request, Employee $employee)
     {
-        $departmentData = new DepartmentData(...$request->validated());
-        $department = $this->updateDepartmentAction->execute($department, $departmentData);
+        $employee = $this->upsertEmployeeAction->execute(
+            $employee,
+            EmployeeData::formData($request)
+        );
 
         return response()->noContent();
     }

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentTypes;
 use App\Models\Concerns\HasUuid;
+use App\Payment\PaymentType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,5 +59,10 @@ class Employee extends Model
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function getPaymentTypeAttribute(): PaymentType
+    {
+        return PaymentTypes::from($this->original['payment_type'])->makePaymentType($this);
     }
 }

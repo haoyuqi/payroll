@@ -3,7 +3,6 @@
 use App\Models\Department;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-
 use function Pest\Laravel\putJson;
 
 it('should update a department', function (string $name, string $description) {

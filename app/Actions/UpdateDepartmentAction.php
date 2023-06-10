@@ -12,6 +12,7 @@ class UpdateDepartmentAction
         $department->name = $departmentData->name;
         $department->description = $departmentData->description;
         $department->save();
+
         return $department;
     }
 }

@@ -13,7 +13,6 @@ class Paycheck extends Model
     use HasUuid;
     use SoftDeletes;
 
-
     /**
      * The attributes that are mass assignable.
      *

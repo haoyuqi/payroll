@@ -3,7 +3,6 @@
 use App\Models\Department;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-
 use function Pest\Laravel\postJson;
 
 it('should create a department', function () {
@@ -33,5 +32,5 @@ it('should return 422 if name is invalid', function (?string $name) {
 })->with([
     '',
     null,
-    'Development'
+    'Development',
 ]);

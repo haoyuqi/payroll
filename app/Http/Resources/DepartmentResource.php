@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use TiMacDonald\JsonApi\JsonApiResource;
 
 class DepartmentResource extends JsonApiResource
@@ -18,7 +17,7 @@ class DepartmentResource extends JsonApiResource
     public function toRelationships($request): array
     {
         return [
-            'employees' => fn() => EmployeeResource::collection($this->employees),
+            'employees' => fn () => EmployeeResource::collection($this->employees),
         ];
     }
 
