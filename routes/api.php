@@ -4,6 +4,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentEmployeeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PaydayController;
+use App\Http\Controllers\EmployeePaycheckController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,8 @@ Route::post(
     'paycheck',
     [PaydayController::class, 'store']
 )->name('payday.store');
+
+Route::get(
+    'employees/{employee}/paychecks',
+    [EmployeePaycheckController::class, 'index']
+)->name('employee.paychecks.index');
