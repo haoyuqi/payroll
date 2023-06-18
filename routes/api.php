@@ -3,8 +3,8 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentEmployeeController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\PaydayController;
 use App\Http\Controllers\EmployeePaycheckController;
+use App\Http\Controllers\PaydayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

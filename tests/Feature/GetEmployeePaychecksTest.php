@@ -3,18 +3,15 @@
 use App\Enums\PaymentTypes;
 use App\Models\Employee;
 use App\Models\Paycheck;
-use Laravel\Sanctum\Sanctum;
 use App\Models\User;
-
-
-
+use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 
 it('should return all paychecks for an employee', function () {
-        Sanctum::actingAs(User::factory()->create(), ['*']);
+    Sanctum::actingAs(User::factory()->create(), ['*']);
 
     $employee = Employee::factory([
-        'payment_type' => PaymentTypes::SALARY->value
+        'payment_type' => PaymentTypes::SALARY->value,
     ])->create();
 
     Paycheck::factory([
